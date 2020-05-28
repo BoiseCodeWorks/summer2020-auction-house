@@ -6,7 +6,7 @@ const Bid = new Schema(
     {
         price: { type: Number, required: true, min: .01 },
         name: { type: String, required: true },
-        goodId: { type: ObjectId, ref: "Good", requried: true }
+        goodId: { type: ObjectId, ref: "Good", required: true }
     },
     { timestamps: true, toJSON: { virtuals: true } }
 );
