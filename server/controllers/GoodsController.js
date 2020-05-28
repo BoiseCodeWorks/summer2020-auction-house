@@ -1,6 +1,7 @@
 import express from "express";
 import BaseController from "../utils/BaseController";
 import { goodsService } from "../services/GoodsService";
+import { bidsService } from "../services/BidsService";
 
 export class GoodsController extends BaseController {
     constructor() {
@@ -8,6 +9,7 @@ export class GoodsController extends BaseController {
         this.router
             .get("", this.getAll)
             .get("/:id", this.getById)
+            .get("/:id/bids", this.getBidsByGoodId)
             .post("", this.create)
             .put("/:id", this.edit)
             .delete("/:id", this.delete)
@@ -23,6 +25,14 @@ export class GoodsController extends BaseController {
     async getById(req, res, next) {
         try {
             let data = await goodsService.findById(req.params.id);
+            return res.send(data)
+        } catch (error) {
+            next(error);
+        }
+    }
+    async getBidsByGoodId(req, res, next) {
+        try {
+            let data = await bidsService.find({ goodId: req.params.id });
             return res.send(data)
         } catch (error) {
             next(error);
